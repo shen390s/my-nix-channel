@@ -1,7 +1,6 @@
-# default.nix
-{ pkgs ? import <nixpkgs> {} }:
+let
+  # Import sources
+  sources = import ./nix/sources.nix;
 
-{
-  my-package = pkgs.callPackage ./my-package.nix {};
-  # Add more packages here
-}
+# And return that specific nixpkgs
+in sources.nixpkgs
