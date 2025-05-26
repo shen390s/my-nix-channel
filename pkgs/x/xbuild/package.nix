@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation {
   pname = "xbuild";
-  version = "v0.0.1";
+  version = "0.0.1";
 
   src = fetchFromGitHub {
     owner = "shen390s";
