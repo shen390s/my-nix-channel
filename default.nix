@@ -1,15 +1,8 @@
+# default.nix
 let
-  sources = imports ./nix/sources.nix;
-
-  hello = pkgs.writeShellScriptBin "hello" ''
-    echo "Hello from the Nix channel overlay!"
-  '';
-
-  pkgs = import sources.nixpkgs {
-    overlays = [
-      (self: super: {
-        inherit hello;
-      })
-    ];
-  };
-in pkgs
+  nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz";
+  pkgs = import nixpkgs { config = {}; overlays = []; };
+in
+{
+  xbuild = pkgs.callPackage ./pkgs/x/xbuild.nix {};
+}
