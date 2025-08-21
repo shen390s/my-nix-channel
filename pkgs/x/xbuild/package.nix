@@ -16,7 +16,8 @@ stdenv.mkDerivation {
     owner = "shen390s";
     repo = "xbuild";
     rev = "master";
-    sha256 = "sha256-DLq7vC+4k2TMy5jKvQkFTy+xZmpvl0+DiWcd7CBVbgw=";
+#    sha256 = "sha256-DLq7vC+4k2TMy5jKvQkFTy+xZmpvl0+DiWcd7CBVbgw=";
+    sha256 =  "sha256-gYIYd3J4mCJJU0yJ+2xL/5URKo+M8T2Q9CWLbxQ2rtQ=";
   };
 
   nativeBuildInputs = [ 
