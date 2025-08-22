@@ -6,6 +6,7 @@
   autoconf,
   automake,
   libtool,
+  ...
 }:
 
 stdenv.mkDerivation {

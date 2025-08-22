@@ -13,9 +13,9 @@
     {
       packages = forAllSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        xbuild = pkgs.callPackage ./pkgs/x/xbuild/package.nix {};
-        cedro  = pkgs.callPackage ./pkgs/c/cedro/package.nix {};
-      });
+      in
+        import ./default.nix { inherit pkgs; });
     };
 }
+
+  
