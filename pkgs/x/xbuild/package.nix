@@ -3,9 +3,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
+  pkgs,
   ...
 }:
 
@@ -22,9 +20,9 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ 
-     autoconf 
-     automake 
-     libtool
+     pkgs.autoconf 
+     pkgs.automake 
+     pkgs.libtool
   ];
 
   preConfigure = ''

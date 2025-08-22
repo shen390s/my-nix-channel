@@ -1,5 +1,6 @@
 {pkgs,...}:
+with pkgs;
 {
-  xbuild = pkgs.callPackage ./pkgs/x/xbuild/package.nix {};
-  cedro = pkgs.callPackage ./pkgs/c/cedro/package.nix {};
+  xbuild = callPackage ./pkgs/x/xbuild/package.nix {};
+  cedro = callPackage ./pkgs/c/cedro/package.nix {};
 }
