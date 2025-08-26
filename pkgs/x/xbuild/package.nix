@@ -4,6 +4,8 @@
   stdenv,
   fetchFromGitHub,
   pkgs,
+  capnpc,
+  cedro,
   ...
 }:
 
@@ -31,9 +33,6 @@ let
   '';
   };
 
-  capnpc = pkgs.callPackage ../../pkgs/c/capnpc/package.nix {};
-  cedro  = pkgs.callPackage ../../pkgs/c/cedro/package.nix {};
-  
   wrapped_xbuild = stdenv.mkDerivation {
     name = "xbuild-wrapper";
 
