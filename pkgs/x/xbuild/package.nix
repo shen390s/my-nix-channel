@@ -4,7 +4,6 @@
   stdenv,
   fetchFromGitHub,
   pkgs,
-  mypkgs,
   ...
 }:
 
@@ -31,6 +30,10 @@ let
      aclocal && automake --add-missing && autoconf
   '';
   };
+
+  capnpc = pkgs.callPackage ../../pkgs/c/capnpc/package.nix {};
+  cedro  = pkgs.callPackage ../../pkgs/c/cedro/package.nix {};
+  
   wrapped_xbuild = stdenv.mkDerivation {
     name = "xbuild-wrapper";
 
@@ -61,7 +64,8 @@ let
       pkgs.elogind
       pkgs.sqlite
       pkgs.python3
-      mypkgs.capnpc
+      capnpc
+      cedro
     ];
 
     propagatedBuildInputs = [

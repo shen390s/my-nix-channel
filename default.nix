@@ -1,4 +1,4 @@
-{pkgs,mypkgs,...}:
+{pkgs,...}:
 with pkgs;
 {
   xbuild = callPackage ./pkgs/x/xbuild/package.nix {};
