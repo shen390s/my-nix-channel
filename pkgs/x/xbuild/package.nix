@@ -83,6 +83,7 @@ let
             --prefix PKG_CONFIG_PATH : ${pkgs.lib.makeSearchPathOutput "dev" "lib/pkgconfig" xbuild.buildInputs} \
 	          --set AUTO_DETECT_PKG_CONFIG_PATH no 
       done
+      cp -Rf ${actual_xbuild}/libexec $out
     '';
   };
 in
