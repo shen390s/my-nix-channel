@@ -34,7 +34,7 @@ let
   };
 
   xbuild = stdenv.mkDerivation {
-    name = "xbuild-wrapper";
+    name = "xbuild";
 
     unpackPhase = "true";
     
