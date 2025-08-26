@@ -66,6 +66,7 @@ let
       pkgs.python3
       pkgs.ncurses
       pkgs.capnproto
+      pkgs.libpq
       capnpc
       cedro
     ];
