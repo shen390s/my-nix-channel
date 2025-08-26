@@ -76,11 +76,11 @@ let
       mkdir -p $out/bin
       for bin in ${actual_xbuild}/bin/*; do
          makeWrapper "$bin" "$out/bin/$(basename $bin)" \
-            --prefix PATH : ${pkgs.lib.makeBinPath wrapped_xbuild.buildInputs} \
-            --prefix PKG_CONFIG_PATH : ${pkgs.lib.makeSearchPathOutput "dev" "lib/pkgconfig" wrapped_xbuild.buildInputs} \
+            --prefix PATH : ${pkgs.lib.makeBinPath xbuild.buildInputs} \
+            --prefix PKG_CONFIG_PATH : ${pkgs.lib.makeSearchPathOutput "dev" "lib/pkgconfig" xbuild.buildInputs} \
 	          --set AUTO_DETECT_PKG_CONFIG_PATH no 
       done
     '';
   };
 in
-  wrapped_xbuild
+  xbuild
