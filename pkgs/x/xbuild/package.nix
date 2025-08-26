@@ -65,6 +65,7 @@ let
       pkgs.sqlite
       pkgs.python3
       pkgs.ncurses
+      pkgs.capnproto
       capnpc
       cedro
     ];
