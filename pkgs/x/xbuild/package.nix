@@ -11,7 +11,7 @@
 
 let
   actual_xbuild=stdenv.mkDerivation {
-    pname = "xbuild";
+    pname = "actual_xbuild";
     version = "0.0.1";
 
     src = fetchFromGitHub {
@@ -33,7 +33,7 @@ let
   '';
   };
 
-  wrapped_xbuild = stdenv.mkDerivation {
+  xbuild = stdenv.mkDerivation {
     name = "xbuild-wrapper";
 
     unpackPhase = "true";
@@ -63,6 +63,7 @@ let
       pkgs.elogind
       pkgs.sqlite
       pkgs.python3
+      pkgs.ncurses
       capnpc
       cedro
     ];
