@@ -44,6 +44,7 @@ let
     ];
 
     buildInputs = [
+      pkgs.pkg-config
       pkgs.gnumake
       pkgs.gcc
       pkgs.coreutils
