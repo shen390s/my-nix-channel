@@ -70,6 +70,7 @@ let
       pkgs.findutils
       pkgs.which
       pkgs.gnugrep
+      pkgs.gawk
       capnpc
       cedro
     ];
