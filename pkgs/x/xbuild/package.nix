@@ -19,7 +19,7 @@ let
       repo = "xbuild";
       rev = "master";
       #    sha256 = "sha256-DLq7vC+4k2TMy5jKvQkFTy+xZmpvl0+DiWcd7CBVbgw=";
-      sha256 =  "sha256-QuTXftn0LxkSGq5lZFbnGKlTRxIqEsJrfKzT+aa8a5k=";
+      sha256 =  "sha256-V4trb5RhJwdvSMHRafMNJ1h2oDfZ8zabA9Vm2CVJLdg=";
     };
 
     nativeBuildInputs = [ 
@@ -67,6 +67,8 @@ let
       pkgs.ncurses
       pkgs.capnproto
       pkgs.postgresql
+      pkgs.findutils
+      pkgs.which
       capnpc
       cedro
     ];
