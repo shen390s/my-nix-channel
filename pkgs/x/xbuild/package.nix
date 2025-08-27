@@ -19,7 +19,7 @@ let
       repo = "xbuild";
       rev = "master";
       #    sha256 = "sha256-DLq7vC+4k2TMy5jKvQkFTy+xZmpvl0+DiWcd7CBVbgw=";
-      sha256 =  "sha256-DD/ErN13ydDwYV5BhF81dJEkDIx1bAFQccDKxjkF+qw=";
+      sha256 =  "sha256-Ad3hVs1enNE4pxA+KAgDlYg+LXOueabK2DldV//xzbw=";
     };
 
     nativeBuildInputs = [ 
