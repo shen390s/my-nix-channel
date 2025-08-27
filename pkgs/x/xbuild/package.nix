@@ -71,6 +71,7 @@ let
       pkgs.which
       pkgs.gnugrep
       pkgs.gawk
+      pkgs.gnused
       capnpc
       cedro
     ];
