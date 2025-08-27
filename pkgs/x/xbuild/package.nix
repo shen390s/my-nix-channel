@@ -69,6 +69,7 @@ let
       pkgs.postgresql
       pkgs.findutils
       pkgs.which
+      pkgs.gnugrep
       capnpc
       cedro
     ];
