@@ -81,7 +81,8 @@ let
          makeWrapper "$bin" "$out/bin/$(basename $bin)" \
             --prefix PATH : ${pkgs.lib.makeBinPath xbuild.buildInputs} \
             --prefix PKG_CONFIG_PATH : ${pkgs.lib.makeSearchPathOutput "dev" "lib/pkgconfig" xbuild.buildInputs} \
-	          --set AUTO_DETECT_PKG_CONFIG_PATH no 
+	          --set AUTO_DETECT_PKG_CONFIG_PATH no \
+            --set XBUILD_SHELL ${pkgs.bash}/bin/bash
       done
       cp -Rf ${actual_xbuild}/libexec $out
     '';
