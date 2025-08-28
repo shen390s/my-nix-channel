@@ -47,6 +47,7 @@ let
       pkgs.pkg-config
       pkgs.gnumake
       pkgs.gcc
+      pkgs.zig
       pkgs.coreutils
       pkgs.bash
       pkgs.strace
