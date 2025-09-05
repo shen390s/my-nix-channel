@@ -14,7 +14,7 @@ stdenv.mkDerivation {
     owner = "shen390s";
     repo = "c-capnproto";
     rev = "master";
-    sha256 = "sha256-U+yUYYvfhPjvADtHsjN5LvOUzFEXZrTmmpqfypf/4Ik=";
+    sha256 = "sha256-nb16c6sq9bx5C5EQS5NE+imvMNcqTjwU9knaCue0C7w=";
   };
 
   nativeBuildInputs = [
