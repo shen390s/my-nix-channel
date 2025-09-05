@@ -13,8 +13,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "shen390s";
     repo = "c-capnproto";
-    rev = "master";
-    sha256 = "sha256-nb16c6sq9bx5C5EQS5NE+imvMNcqTjwU9knaCue0C7w=";
+    rev = "main";
+    sha256 = "sha256-PapM3rCtA8D3uC1YAdzxqR9qvHa15849XmbhBBLuoO0=";
   };
 
   nativeBuildInputs = [
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
   '';
   
   configurePhase = ''
-      cmake --preset=ci-linux_x86_64 -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF
+      cmake --preset=ci-linux_x86_64 -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=$out
   '';
   
   buildPhase = ''
@@ -36,11 +36,6 @@ stdenv.mkDerivation {
   '';           
 
   installPhase = ''
-     mkdir -p $out/bin
-     mkdir -p $out/include
-     mkdir -p $out/lib
-     cp build/capnpc-c $out/bin
-     cp build/libCapnC_Runtime.a $out/lib
-     cp lib/capnp_c.h $out/include
+      cmake --install build
   '';
 }
