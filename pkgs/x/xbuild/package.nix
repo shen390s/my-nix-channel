@@ -18,8 +18,8 @@ let
       owner = "shen390s";
       repo = "xbuild";
       rev = "master";
-      #    sha256 = "sha256-DLq7vC+4k2TMy5jKvQkFTy+xZmpvl0+DiWcd7CBVbgw=";
-      sha256 =  "sha256-V4trb5RhJwdvSMHRafMNJ1h2oDfZ8zabA9Vm2CVJLdg=";
+      # sha256 =  "sha256-V4trb5RhJwdvSMHRafMNJ1h2oDfZ8zabA9Vm2CVJLdg=";
+      sha256 = "sha256-V4trb5RhJwdvSMHRafMNJ1h2oDfZ8zabA9Vm2CVJLdg=";
     };
 
     nativeBuildInputs = [ 
