@@ -12,6 +12,7 @@ let
     with_pkgconf = true;
   };
   tinylog = callPackage ./pkgs/t/tinylog/package.nix {};
+  unity_test_with_color = callPackage ./pkgs/u/unity-test/package.nix {};
 in
 {
   xbuild = xbuild;
@@ -19,4 +20,5 @@ in
   cedro  = cedro;
   zlog_with_pkgconf = zlog_with_pkgconf;
   tinylog = tinylog;
+  unity_test_with_color = unity_test_with_color;
 }

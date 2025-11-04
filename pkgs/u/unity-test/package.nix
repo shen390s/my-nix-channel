@@ -17,6 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [ cmake ];
+  makeFlags = [ "UNITY_OUTPUT_COLOR=1" ];
   doCheck = true;
 
   meta = {
