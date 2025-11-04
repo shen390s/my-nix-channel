@@ -11,10 +11,12 @@ let
   zlog_with_pkgconf = callPackage ./pkgs/z/zlog/package.nix {
     with_pkgconf = true;
   };
+  tinylog = callPackage ./pkgs/t/tinylog/package.nix {};
 in
 {
   xbuild = xbuild;
   capnpc = capnpc;
   cedro  = cedro;
   zlog_with_pkgconf = zlog_with_pkgconf;
+  tinylog = tinylog;
 }
