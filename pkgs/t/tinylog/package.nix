@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "shen390s";
     repo = "tinylog";
     rev = "master";
-    hash = "sha256-EvLoi4Yew7hE8wnogh7nJxoDsZbjphsHCCxuWzbWysA=";
+    hash = "sha256-ZPyzHe8kRSg1Z3MWtsYeIy4ifziWfYf+lnByrTAgqr4=";
   };
 
   nativeBuildInputs = [ cmake ];
