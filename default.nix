@@ -16,6 +16,7 @@ let
   uem = callPackage ./pkgs/u/uem/package.nix {
     pkgs = pkgs;
   };
+  cetcd = callPackage ./pkgs/cetcd/package.nix {};
 in
 {
   xbuild = xbuild;
@@ -25,4 +26,5 @@ in
   tinylog = tinylog;
   unity_test_with_color = unity_test_with_color;
   uem = uem;
+  cetcd = cetcd;
 }

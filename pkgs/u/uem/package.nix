@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  pkgs,
 }:
 
 let
@@ -22,14 +23,30 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "shen390s";
     repo = "uem";
-    tag = "v${finalAttrs.version}";
-#    hash = "sha256-g0ubq7RxGQmL1R6vz9RIGJpVWYsgrZhsTWSrL1ySEug=";
+    rev = "develop";
+    hash = "sha256-WLQak+5dbD4Zo3EgnW5YVhj5tNPJlkXYdd4lNLzRlq0=";
   };
 
-  nativeBuildInputs = [ roswell ];
+  nativeBuildInputs = [ pkgs.roswell ];
   doCheck = true;
 
   buildPhase = ''
-     ros build roswell/uem.ros
+     set +e
+     export HOME=/build
+     env
+     ros version
+     find .
+     mkdir -p $HOME/.roswell
+     cat >$HOME/.roswell/init.lisp <<EOF
+     ;; (ql:quickload 'asdf-driver)
+     (let ((cwd (parse-native-namestring (sb-posix:getcwd)
+                                    nil
+                                    *default-pathname-defaults*
+                                    :as-directory t)))
+          (push cwd
+                asdf:*central-registry*))
+     EOF
+
+     ros -l $HOME/.roswell/init.lisp build roswell/uem.ros
   '';          
 })
