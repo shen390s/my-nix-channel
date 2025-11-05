@@ -30,23 +30,26 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ pkgs.roswell ];
   doCheck = true;
 
+  configurePhase = ''
+     mkdir -p .roswell
+     cat >.roswell/init.lisp <<EOF
+     (format nil "Hell,world~%")
+     ;;(push "$src" asdf:*central-registry*)
+     EOF
+  '';
+  
   buildPhase = ''
      set +e
-     export HOME=/build
-     env
-     ros version
+     set -x
+     cat .roswell/init.lisp
+     ros setup
+     # find /build/.roswell
+     # echo running
+     sh -x ros version
      find .
-     mkdir -p $HOME/.roswell
-     cat >$HOME/.roswell/init.lisp <<EOF
-     ;; (ql:quickload 'asdf-driver)
-     (let ((cwd (parse-native-namestring (sb-posix:getcwd)
-                                    nil
-                                    *default-pathname-defaults*
-                                    :as-directory t)))
-          (push cwd
-                asdf:*central-registry*))
-     EOF
-
-     ros -l $HOME/.roswell/init.lisp build roswell/uem.ros
+     find /build/source
+     # ros build $src/roswell/uem.ros
+     mkdir -p $out
+     cp .roswell/init.lisp $out
   '';          
 })

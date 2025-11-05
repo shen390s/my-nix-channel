@@ -16,7 +16,7 @@ let
   uem = callPackage ./pkgs/u/uem/package.nix {
     pkgs = pkgs;
   };
-  cetcd = callPackage ./pkgs/cetcd/package.nix {};
+  cetcd = callPackage ./pkgs/c/cetcd/package.nix {};
 in
 {
   xbuild = xbuild;
