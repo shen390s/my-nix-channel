@@ -13,6 +13,9 @@ let
   };
   tinylog = callPackage ./pkgs/t/tinylog/package.nix {};
   unity_test_with_color = callPackage ./pkgs/u/unity-test/package.nix {};
+  uem = callPackage ./pkgs/u/uem/package.nix {
+    pkgs = pkgs;
+  };
 in
 {
   xbuild = xbuild;
@@ -21,4 +24,5 @@ in
   zlog_with_pkgconf = zlog_with_pkgconf;
   tinylog = tinylog;
   unity_test_with_color = unity_test_with_color;
+  uem = uem;
 }
