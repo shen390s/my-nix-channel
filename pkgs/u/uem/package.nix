@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "shen390s";
     repo = "uem";
     rev = "develop";
-    hash = "sha256-WLQak+5dbD4Zo3EgnW5YVhj5tNPJlkXYdd4lNLzRlq0=";
+    hash = "sha256-+r7pqow/JHH7i3+2Q2KHldErfigm6nnImGtpsdCWfaQ=";
   };
 
   buildInputs = with pkgs; [ 
@@ -49,13 +49,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
   
   buildPhase = ''
-     set +e
-     set -x
+     set -e
      cat >$ROSWELL_HOME/init.lisp <<EOF
        (ros:ensure-asdf)
        (push (uiop:ensure-directory-pathname "$src/") asdf:*central-registry*)
      EOF
-     cat $ROSWELL_HOME/init.lisp
      cp -Rf $src/roswell .
      ros build  roswell/uem.ros 
   '';          
@@ -63,5 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
      mkdir -p $out/bin
      cp roswell/uem $out/bin
+     cp -Rf $src/modules $out
   '';
 })
