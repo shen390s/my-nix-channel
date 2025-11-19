@@ -12,7 +12,9 @@ let
     with_pkgconf = true;
   };
   tinylog = callPackage ./pkgs/t/tinylog/package.nix {};
-  unity_test_with_color = callPackage ./pkgs/u/unity-test/package.nix {};
+  unity_test_with_color = pkgs.unity-test.overrideAttrs {
+    env.NIX_CFLAGS_COMPILE = "-DUNITY_OUTPUT_COLOR=1"; 
+  }; 
   uem = callPackage ./pkgs/u/uem/package.nix {
     pkgs = pkgs;
   };
