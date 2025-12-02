@@ -24,7 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "shen390s";
     repo = "uem";
     rev = "develop";
-    hash ="sha256-v6vtPUVfQ+W4/sZKPxKyuqAGaXda47FZEM4/XdXR63o=";
+#    hash ="sha256-v6vtPUVfQ+W4/sZKPxKyuqAGaXda47FZEM4/XdXR63o=";
+    hash = "sha256-c8BqYIfDHica6AhJsWEQY0mMEo5Oj3/VuLKx1s1kO9w=";
   };
 
   buildInputs = with pkgs; [ 
