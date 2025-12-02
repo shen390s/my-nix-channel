@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     Name: ${pname}
     Description: ${meta.description}
     Version: ${version}
-    Libs: -L\''${libdir} -lzlog
+    Libs: -L\''${libdir} -lextra
     Cflags: -I\''${includedir}
     EOF
   '';
