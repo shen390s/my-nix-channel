@@ -71,6 +71,9 @@ let
     pkgs = pkgs;
   };
   cetcd = callPackage ./pkgs/c/cetcd/package.nix {};
+  extralib = callPackage ./pkgs/e/extralib/package.nix {
+    pkgs = pkgs;
+  };
 in
 {
   xbuild = xbuild;
@@ -83,4 +86,5 @@ in
   cetcd = cetcd;
   libcello_debug = libcello_debug;
   packcc = packcc_main;
+  extralib = extralib;
 }
