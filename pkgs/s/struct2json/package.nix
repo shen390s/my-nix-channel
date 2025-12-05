@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "shen390s";
     repo = "struct2json";
     rev = "master";
-    hash = "sha256-2J3JFrUc0FSX5U+vmyc5Ccmb7ONqiRprZj+QoRtwius=";
+    hash = "sha256-oPMHKCbEuh0Z2zHHmSEec/m2nBv+CwGz9E6Sc5vfMbM=";
   };
 
   nativeBuildInputs = [
