@@ -29,7 +29,7 @@ stdenv.mkDerivation {
   '';
   
   configurePhase = ''
-      cmake --preset=ci-linux_x86_64 -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=$out
+      cmake --preset=ci-linux_x86_64 -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$out
   '';
   
   buildPhase = ''
