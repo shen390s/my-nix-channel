@@ -74,6 +74,7 @@ let
   struct2json = callPackage ./pkgs/s/struct2json/package.nix {
     pkgs = pkgs;
   };
+  my-ttf-fonts = callPackage ./pkgs/f/fonts/package.nix {};
 in
 {
   xbuild = xbuild;
@@ -87,4 +88,5 @@ in
   libcello_debug = libcello_debug;
   packcc = packcc_main;
   struct2json = struct2json;
+  my-ttf-fonts = my-ttf-fonts;
 }
