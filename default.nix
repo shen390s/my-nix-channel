@@ -39,7 +39,7 @@ let
       owner = "arithy";
       repo = "packcc";
       rev = "main";
-      hash = "sha256-oE9rdZmEEd8op5jkAzqEyD5rcZatn3IKIIJiQhGsqoc=";
+      hash = "sha256-zkrpPGLylgPpV1iyXosVbsbn2qt8/+WnBeK/w1WtwBk=";
     };
 
     nativeBuildInputs = [
