@@ -1,0 +1,174 @@
+#!/bin/bash
+# gost-ctl — manage the GOST proxy tunnel and container network attachments
+#
+# Usage: gost-ctl <command> [args]
+#
+# Commands:
+#   start                  Start gost-tunnel service and watcher
+#   stop                   Stop gost-tunnel service and watcher
+#   restart                Restart gost-tunnel service
+#   attach <name> <ip>     Attach a container to the bridge (idempotent)
+#   detach <name>          Detach a container from the bridge
+#   status                 Show tunnel, bridge, and container status
+#
+# Config resolution (first match wins):
+#   $GOST_TUNNEL_CONFIG env var → /etc/gost-tunnel/env → .env in script dir
+
+set -e
+
+# ─── Config ─────────────────────────────────────────────────────────────────
+
+CONFIG_FILE="${GOST_TUNNEL_CONFIG:-/etc/gost-tunnel/env}"
+if [ ! -f "$CONFIG_FILE" ]; then
+  CONFIG_FILE="$(dirname "$(realpath "$0")")/.env"
+fi
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "ERROR: config not found. Set GOST_TUNNEL_CONFIG or place .env next to gost-ctl"
+  exit 1
+fi
+# shellcheck source=/dev/null
+source "$CONFIG_FILE"
+
+# ─── Helpers ────────────────────────────────────────────────────────────────
+
+log() { echo "[$(date '+%H:%M:%S')] $*"; }
+
+require_root() {
+  [ "$(id -u)" -eq 0 ] || { echo "ERROR: gost-ctl must be run as root"; exit 1; }
+}
+
+# ─── Commands ───────────────────────────────────────────────────────────────
+
+cmd_start() {
+  systemctl start gost-tunnel gost-tunnel-watcher
+  log "gost-tunnel started"
+}
+
+cmd_stop() {
+  systemctl stop gost-tunnel-watcher gost-tunnel
+  log "gost-tunnel stopped"
+}
+
+cmd_restart() {
+  systemctl restart gost-tunnel
+  log "gost-tunnel restarted"
+}
+
+cmd_attach() {
+  require_root
+  local cname="$1" cip="$2"
+  [ -n "$cname" ] && [ -n "$cip" ] \
+    || { echo "Usage: gost-ctl attach <name> <ip>"; exit 1; }
+
+  local veth_h="veth-${cname}-h" veth_c="veth-${cname}-c"
+
+  # Idempotency: skip if already attached
+  if ip link show "$veth_h" >/dev/null 2>&1; then
+    log "$cname already attached (veth exists), skipping."
+    return 0
+  fi
+
+  # Wait for container PID
+  local pid
+  for i in $(seq 1 30); do
+    pid=$(docker inspect -f '{{.State.Pid}}' "$cname" 2>/dev/null)
+    [[ "$pid" =~ ^[0-9]+$ ]] && [ "$pid" -gt 0 ] && break
+    log "Waiting for $cname PID... ($i/30)"; sleep 1
+  done
+  [[ "$pid" =~ ^[0-9]+$ ]] && [ "$pid" -gt 0 ] \
+    || { log "ERROR: $cname PID not found"; docker logs "$cname"; exit 1; }
+
+  log "$cname PID: $pid"
+  mkdir -p /var/run/netns
+  ln -sfT "/proc/$pid/ns/net" "/var/run/netns/$cname"
+
+  ip link add "$veth_h" type veth peer name "$veth_c"
+  ip link set "$veth_h" master "$BRIDGE_NAME"
+  ip link set "$veth_h" up
+  ip link set "$veth_c" netns "$cname"
+  ip netns exec "$cname" ip link set "$veth_c" name eth0
+  ip netns exec "$cname" ip link set lo up
+  ip netns exec "$cname" ip link set eth0 up
+  ip netns exec "$cname" ip addr add "${cip}/24" dev eth0
+  ip netns exec "$cname" ip route add default via "$BRIDGE_IP"
+  log "$cname attached at $cip via $BRIDGE_IP"
+}
+
+cmd_detach() {
+  require_root
+  local cname="$1"
+  [ -n "$cname" ] || { echo "Usage: gost-ctl detach <name>"; exit 1; }
+
+  local veth_h="veth-${cname}-h"
+  if ip link del "$veth_h" 2>/dev/null; then
+    log "$cname veth removed"
+  else
+    log "$cname veth not found (already detached?)"
+  fi
+  rm -f "/var/run/netns/$cname"
+  log "$cname detached"
+}
+
+cmd_status() {
+  echo ""
+  local svc_state watcher_state
+  svc_state=$(systemctl is-active gost-tunnel 2>/dev/null || echo "inactive")
+  watcher_state=$(systemctl is-active gost-tunnel-watcher 2>/dev/null || echo "inactive")
+  echo "Service:  $svc_state"
+  echo "Watcher:  $watcher_state"
+
+  if ip link show "$TUN_NAME" >/dev/null 2>&1; then
+    local tun_addr
+    tun_addr=$(ip -4 addr show "$TUN_NAME" | awk '/inet /{print $2}' | head -1)
+    echo "TUN:      $TUN_NAME  UP  ${tun_addr:-<no addr>}"
+  else
+    echo "TUN:      $TUN_NAME  DOWN"
+  fi
+
+  if ip link show "$BRIDGE_NAME" >/dev/null 2>&1; then
+    local br_addr
+    br_addr=$(ip -4 addr show "$BRIDGE_NAME" | awk '/inet /{print $2}' | head -1)
+    echo "Bridge:   $BRIDGE_NAME  UP  ${br_addr:-<no addr>}"
+  else
+    echo "Bridge:   $BRIDGE_NAME  DOWN"
+  fi
+
+  echo ""
+  echo "Attached containers:"
+  local found=0
+  for veth in $(ip link show 2>/dev/null | grep -oP 'veth-\S+-h' | sort -u); do
+    local cname="${veth#veth-}"; cname="${cname%-h}"
+    local cip
+    cip=$(ip netns exec "$cname" ip -4 addr show eth0 2>/dev/null \
+          | awk '/inet /{print $2}' | head -1 || echo "<unknown>")
+    local link_state
+    link_state=$(ip link show "$veth" 2>/dev/null | grep -oP '(?<=state )\S+' | head -1)
+    printf "  %-16s %-18s %s\n" "$cname" "$cip" "$veth ${link_state:-?}"
+    found=1
+  done
+  [ "$found" -eq 0 ] && echo "  (none)"
+  echo ""
+}
+
+# ─── Dispatch ───────────────────────────────────────────────────────────────
+
+case "${1:-}" in
+  start)   cmd_start ;;
+  stop)    cmd_stop ;;
+  restart) cmd_restart ;;
+  attach)  shift; cmd_attach "$@" ;;
+  detach)  shift; cmd_detach "$@" ;;
+  status)  cmd_status ;;
+  *)
+    echo "Usage: gost-ctl <command> [args]"
+    echo ""
+    echo "Commands:"
+    echo "  start                  Start gost-tunnel service and watcher"
+    echo "  stop                   Stop gost-tunnel service and watcher"
+    echo "  restart                Restart gost-tunnel service"
+    echo "  attach <name> <ip>     Attach container to bridge"
+    echo "  detach <name>          Detach container from bridge"
+    echo "  status                 Show tunnel and container status"
+    exit 1
+    ;;
+esac
