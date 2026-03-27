@@ -4,6 +4,7 @@ let
   cedro = callPackage ./pkgs/c/cedro/package.nix {};
   capnpc = callPackage ./pkgs/c/capnpc/package.nix {};
   gost-ctl = callPackage ./pkgs/g/gost-ctl/package.nix {};
+  norouter = callPackage ./pkgs/n/norouter/package.nix {};
   xbuild = callPackage ./pkgs/x/xbuild/package.nix {
     pkgs = pkgs;
     cedro = cedro;
@@ -82,6 +83,7 @@ in
   capnpc = capnpc;
   cedro  = cedro;
   gost-ctl = gost-ctl;
+  norouter = norouter;
   zlog_with_pkgconf = zlog_with_pkgconf;
   tinylog = tinylog;
   unity_test_with_color = unity_test_with_color;
