@@ -72,6 +72,9 @@ let
   uem = callPackage ./pkgs/u/uem/package.nix {
     pkgs = pkgs;
   };
+  claude-gate = callPackage ./pkgs/c/claude-gate/package.nix {
+    pkgs = pkgs;
+  };
   cetcd = callPackage ./pkgs/c/cetcd/package.nix {};
   struct2json = callPackage ./pkgs/s/struct2json/package.nix {
     pkgs = pkgs;
@@ -93,4 +96,5 @@ in
   packcc = packcc_main;
   struct2json = struct2json;
   my-ttf-fonts = my-ttf-fonts;
+  claude-gate = claude-gate;
 }
