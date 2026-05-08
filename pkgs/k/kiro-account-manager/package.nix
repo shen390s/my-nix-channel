@@ -20,14 +20,14 @@ let
     owner = "hj01857655";
     repo = "kiro-account-manager";
     rev = "2e2d4b09d3ad3b028dab719958707d9e19923261";
-    hash = "";
+    hash = "sha256-d1TOjpzVNM+qKW12Ny6FeVfxdipY0ZUbs6Xg9TKeinI=";
   };
 
   frontend = buildNpmPackage {
     pname = "${pname}-frontend";
     inherit version src;
 
-    npmDepsHash = "";
+    npmDepsHash = "sha256-BI0lxemB7qcu1o7bp6kOZrl1/YTVPa8jNUFpZIMZB1I=";
 
     installPhase = ''
       runHook preInstall
@@ -41,10 +41,11 @@ in rustPlatform.buildRustPackage {
 
   sourceRoot = "${src.name}/src-tauri";
 
-  cargoHash = "";
+  cargoHash = "sha256-GXoNqhwvK9A5zPt0Wb8+hJA+N1nm2DvOb2FfaurLq2Q=";
 
-  preBuild = ''
-    cp -r ${frontend} ../dist
+  postPatch = ''
+    substituteInPlace tauri.conf.json \
+      --replace-fail '"frontendDist": "../dist"' '"frontendDist": "${frontend}"'
   '';
 
   nativeBuildInputs = [ pkg-config ];
