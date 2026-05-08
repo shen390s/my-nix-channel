@@ -19,6 +19,8 @@ let
     pkgs = pkgs;
   };
   cetcd = callPackage ./pkgs/c/cetcd/package.nix {};
+  deepseek-tui = callPackage ./pkgs/d/deepseek-tui/package.nix {};
+  kiro-account-manager = callPackage ./pkgs/k/kiro-account-manager/package.nix {};
 in
 {
   xbuild = xbuild;
@@ -29,4 +31,6 @@ in
   unity_test_with_color = unity_test_with_color;
   uem = uem;
   cetcd = cetcd;
+  deepseek-tui = deepseek-tui;
+  kiro-account-manager = kiro-account-manager;
 }
