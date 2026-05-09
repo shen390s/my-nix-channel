@@ -1,4 +1,4 @@
-{pkgs,...}:
+{pkgs, uv2nix ? null, pyproject-nix ? null, pyproject-build-systems ? null, npm-lockfile-fix-pkg ? null, ...}:
 with pkgs;
 let
   cedro = callPackage ./pkgs/c/cedro/package.nix {};
@@ -78,6 +78,12 @@ let
   cetcd = callPackage ./pkgs/c/cetcd/package.nix {};
   deepseek-tui = callPackage ./pkgs/d/deepseek-tui/package.nix {};
   kiro-account-manager = callPackage ./pkgs/k/kiro-account-manager/package.nix {};
+  hermes-agent = callPackage ./pkgs/h/hermes-agent/package.nix {
+    uv2nix = uv2nix;
+    pyproject-nix = pyproject-nix;
+    pyproject-build-systems = pyproject-build-systems;
+    npm-lockfile-fix = npm-lockfile-fix-pkg;
+  };
   struct2json = callPackage ./pkgs/s/struct2json/package.nix {
     pkgs = pkgs;
   };
@@ -96,6 +102,7 @@ in
   cetcd = cetcd;
   deepseek-tui = deepseek-tui;
   kiro-account-manager = kiro-account-manager;
+  hermes-agent = hermes-agent;
   libcello_debug = libcello_debug;
   packcc = packcc_main;
   struct2json = struct2json;
