@@ -14,13 +14,13 @@
 
 let
   pname = "kiro-account-manager";
-  version = "1.8.5";
+  version = "1.8.6";
 
   src = fetchFromGitHub {
     owner = "hj01857655";
     repo = "kiro-account-manager";
-    rev = "2e2d4b09d3ad3b028dab719958707d9e19923261";
-    hash = "sha256-d1TOjpzVNM+qKW12Ny6FeVfxdipY0ZUbs6Xg9TKeinI=";
+    rev = "v1.8.6";
+    hash = "sha256-cZL5H5tCiATIBhkW9w9vN4vLatGapdA8VTzyfwaii7s=";
   };
 
   frontend = buildNpmPackage {
@@ -41,11 +41,13 @@ in rustPlatform.buildRustPackage {
 
   sourceRoot = "${src.name}/src-tauri";
 
-  cargoHash = "sha256-GXoNqhwvK9A5zPt0Wb8+hJA+N1nm2DvOb2FfaurLq2Q=";
+  cargoHash = "sha256-C6+0Z7Mj9YuGInNTO9gyzDIrobaOWSHeNm6rEVveifY=";
 
   postPatch = ''
     substituteInPlace tauri.conf.json \
       --replace-fail '"frontendDist": "../dist"' '"frontendDist": "${frontend}"'
+    substituteInPlace .cargo/config.toml \
+      --replace-fail '"-C", "link-arg=-fuse-ld=lld"' ""
   '';
 
   nativeBuildInputs = [ pkg-config ];
