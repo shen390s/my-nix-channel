@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "deepseek-tui";
-  version = "0.8.20";
+  version = "0.8.25";
 
   src = fetchFromGitHub {
-    owner = "shen390s";
+    owner = "Hmbown";
     repo = "DeepSeek-TUI";
-    rev = "f183501fbd2199d9d10040e1a63392de604f172c";
-    hash = "sha256-E621hEtWjdr5c9MZsifaYgdjyFvXcMvKLFmiyC4+Hr8=";
+    rev = "v0.8.25";
+    hash = "sha256-ttzRBo7RtIRCogcPkM7z7EkZtWDLvkHCeQFbAPeb0ns=";
   };
 
-  cargoHash = "sha256-7Atb+VhGHk1RtNJl+7kJOimpc/4sZs/pTKDRWmUzoSI=";
+  cargoHash = "sha256-1UDsrrh4/OJyr4KOMO4WdetfCzaHE5oFl1yBuoUKDTM=";
 
   doCheck = false;
 
@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage {
 
   meta = {
     description = "A TUI client for DeepSeek AI";
-    homepage = "https://github.com/shen390s/DeepSeek-TUI";
+    homepage = "https://github.com/Hmbown/DeepSeek-TUI";
     license = lib.licenses.mit;
     mainProgram = "deepseek";
   };
