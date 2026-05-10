@@ -72,10 +72,6 @@ let
   uem = callPackage ./pkgs/u/uem/package.nix {
     pkgs = pkgs;
   };
-  claude-gate = callPackage ./pkgs/c/claude-gate/package.nix {
-    pkgs = pkgs;
-  };
-  cetcd = callPackage ./pkgs/c/cetcd/package.nix {};
   deepseek-tui = callPackage ./pkgs/d/deepseek-tui/package.nix {};
   kiro-account-manager = callPackage ./pkgs/k/kiro-account-manager/package.nix {};
   craft-agents = callPackage ./pkgs/c/craft-agents/package.nix {};
@@ -100,7 +96,6 @@ in
   tinylog = tinylog;
   unity_test_with_color = unity_test_with_color;
   uem = uem;
-  cetcd = cetcd;
   deepseek-tui = deepseek-tui;
   kiro-account-manager = kiro-account-manager;
   craft-agents = craft-agents;
@@ -109,5 +104,4 @@ in
   packcc = packcc_main;
   struct2json = struct2json;
   my-ttf-fonts = my-ttf-fonts;
-  claude-gate = claude-gate;
 }
