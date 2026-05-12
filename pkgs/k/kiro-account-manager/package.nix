@@ -14,13 +14,13 @@
 
 let
   pname = "kiro-account-manager";
-  version = "1.8.7";
+  version = "1.8.6";
 
   src = fetchFromGitHub {
     owner = "hj01857655";
     repo = "kiro-account-manager";
-    rev = "v1.8.7";
-    hash = "sha256-C97sXXjXVtroB1gR1SSr9eftarEMCEIdl07QbLh1GWc=";
+    rev = "v1.8.6";
+    hash = "sha256-1w48KIibBVqNk9eK6BYQGzsPcqo7mXRbVmCdUP/zfX8=";
   };
 
   frontend = buildNpmPackage {
