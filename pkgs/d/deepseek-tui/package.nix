@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "deepseek-tui";
-  version = "0.8.25";
+  version = "0.8.65";
 
   src = fetchFromGitHub {
     owner = "Hmbown";
     repo = "DeepSeek-TUI";
-    rev = "v0.8.25";
-    hash = "sha256-ttzRBo7RtIRCogcPkM7z7EkZtWDLvkHCeQFbAPeb0ns=";
+    rev = "v0.8.65";
+    hash = "sha256-OLwQuMV9BX9GDTGPT8S3KoHAhfURPxXgk6OxvMGK5w0=";
   };
 
-  cargoHash = "sha256-1UDsrrh4/OJyr4KOMO4WdetfCzaHE5oFl1yBuoUKDTM=";
+  cargoHash = "sha256-Fv1NHzHhc2zQZzdLz0yyZmVkaN7jglSAEtN/XjaVJeY=";
 
   doCheck = false;
 

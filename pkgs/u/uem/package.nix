@@ -39,6 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     zstd
   ];
 
+  __noChroot = true;
   doCheck = true; 
   dontStrip = true;
 

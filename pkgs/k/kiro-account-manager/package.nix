@@ -14,20 +14,24 @@
 
 let
   pname = "kiro-account-manager";
-  version = "1.8.6";
+  version = "1.9.2";
 
   src = fetchFromGitHub {
     owner = "hj01857655";
     repo = "kiro-account-manager";
-    rev = "v1.8.6";
-    hash = "sha256-1w48KIibBVqNk9eK6BYQGzsPcqo7mXRbVmCdUP/zfX8=";
+    rev = "v1.9.2";
+    hash = "sha256-lU+JL7iM7EWGs5NtJHIbXIeVI+eayi+8vuxCmoNWIXM=";
   };
 
   frontend = buildNpmPackage {
     pname = "${pname}-frontend";
     inherit version src;
 
-    npmDepsHash = "sha256-BI0lxemB7qcu1o7bp6kOZrl1/YTVPa8jNUFpZIMZB1I=";
+    postPatch = ''
+      cp ${./package-lock.json} package-lock.json
+    '';
+
+    npmDepsHash = "sha256-O+uNz/nN+5ZieKoKn82uT2jxG1bGAAdRrQ7PMHlsvHw=";
 
     installPhase = ''
       runHook preInstall
@@ -41,7 +45,7 @@ in rustPlatform.buildRustPackage {
 
   sourceRoot = "${src.name}/src-tauri";
 
-  cargoHash = "sha256-C6+0Z7Mj9YuGInNTO9gyzDIrobaOWSHeNm6rEVveifY=";
+  cargoHash = "sha256-DkBHph3m6+M0t8qLDSwmTIPi7x4v8AQn0ccrNqBydPc=";
 
   postPatch = ''
     substituteInPlace tauri.conf.json \
