@@ -76,6 +76,7 @@ let
   kiro-account-manager = callPackage ./pkgs/k/kiro-account-manager/package.nix {};
   craft-agents = callPackage ./pkgs/c/craft-agents/package.nix {};
   codegraph = callPackage ./pkgs/c/codegraph/package.nix {};
+  claude-auto-retry = callPackage ./pkgs/c/claude-auto-retry/package.nix {};
   hermes-agent = callPackage ./pkgs/h/hermes-agent/package.nix {
     uv2nix = uv2nix;
     pyproject-nix = pyproject-nix;
@@ -102,6 +103,7 @@ in
   kiro-account-manager = kiro-account-manager;
   craft-agents = craft-agents;
   codegraph = codegraph;
+  claude-auto-retry = claude-auto-retry;
   hermes-agent = hermes-agent;
   libcello_debug = libcello_debug;
   packcc = packcc_main;
