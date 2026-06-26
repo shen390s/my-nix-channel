@@ -85,6 +85,7 @@ let
   struct2json = callPackage ./pkgs/s/struct2json/package.nix {
     pkgs = pkgs;
   };
+  tla-toolbox = callPackage ./pkgs/t/tla-toolbox/package.nix {};
   my-ttf-fonts = callPackage ./pkgs/f/fonts/package.nix {};
 in
 {
@@ -105,5 +106,6 @@ in
   libcello_debug = libcello_debug;
   packcc = packcc_main;
   struct2json = struct2json;
+  tla-toolbox = tla-toolbox;
   my-ttf-fonts = my-ttf-fonts;
 }
