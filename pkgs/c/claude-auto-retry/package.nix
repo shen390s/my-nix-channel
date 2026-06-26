@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "shen390s";
     repo = "claude-auto-retry";
     rev = "master";
-    hash = "sha256-E5quR77Vzgfg/T4njWQ79N+994xZ6OrnZMFC7S6P+No=";
+    hash = "sha256-NnsVDUcQ71//vgfJDV9TaJHUjqrRoF/S7xB6/OQf3IU=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
