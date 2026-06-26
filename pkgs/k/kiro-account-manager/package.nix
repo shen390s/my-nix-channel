@@ -2,6 +2,7 @@
 , rustPlatform
 , fetchFromGitHub
 , buildNpmPackage
+, makeWrapper
 , pkg-config
 , openssl
 , glib
@@ -54,7 +55,7 @@ in rustPlatform.buildRustPackage {
       --replace-fail '"-C", "link-arg=-fuse-ld=lld"' ""
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   buildInputs = [
     openssl
@@ -67,6 +68,11 @@ in rustPlatform.buildRustPackage {
   ];
 
   doCheck = false;
+
+  postFixup = ''
+    wrapProgram $out/bin/kiro-account-manager \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}"
+  '';
 
   meta = {
     description = "Kiro IDE account manager with multi-account switching and quota monitoring";
