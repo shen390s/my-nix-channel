@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "claude-auto-retry";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "shen390s";
     repo = "claude-auto-retry";
     rev = "master";
-    hash = "sha256-NnsVDUcQ71//vgfJDV9TaJHUjqrRoF/S7xB6/OQf3IU=";
+    hash = "sha256-4G9K/poQkWh8snsEK41VNySe79i1lCtHMsu7Xui1+IM=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
