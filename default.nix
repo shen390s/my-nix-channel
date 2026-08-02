@@ -87,6 +87,7 @@ let
     pkgs = pkgs;
   };
   tla-toolbox = callPackage ./pkgs/t/tla-toolbox/package.nix {};
+  llmfit = callPackage ./pkgs/l/llmfit/package.nix {};
   my-ttf-fonts = callPackage ./pkgs/f/fonts/package.nix {};
 in
 {
@@ -109,5 +110,6 @@ in
   packcc = packcc_main;
   struct2json = struct2json;
   tla-toolbox = tla-toolbox;
+  llmfit = llmfit;
   my-ttf-fonts = my-ttf-fonts;
 }
