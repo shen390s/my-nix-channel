@@ -2,16 +2,16 @@
 
 let
   pname = "codegraph";
-  version = "1.1.1";
+  version = "1.5.0";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://github.com/colbymchenry/codegraph/releases/download/v${version}/codegraph-linux-x64.tar.gz";
-      hash = "sha256-C+cBPFeSJyhOgDL4o2l3CtAmY9Z6E0eHgVkKMN1X7n8=";
+      hash = "sha256-K6Zeh6EhC3BrseZ9Xki1/EoZNeQ9uz+18xxVl4QNLlg=";
     };
     aarch64-linux = fetchurl {
       url = "https://github.com/colbymchenry/codegraph/releases/download/v${version}/codegraph-linux-arm64.tar.gz";
-      hash = "sha256-KJvDNRorXltdgAguWbNAqsUQ+jTr7DHaVJaWQlpsduw=";
+      hash = "sha256-nxd1Cu30XVH2jKrjntIdbipykLIyblxT+VoWWRjr0dg=";
     };
   };
 in stdenv.mkDerivation {
@@ -28,7 +28,6 @@ in stdenv.mkDerivation {
     runHook preInstall
     mkdir -p $out/{bin,lib/codegraph}
     cp -r codegraph-linux-*/. $out/lib/codegraph/
-    makeWrapper() { true; }
     cat > $out/bin/codegraph <<EOF
     #!/bin/sh
     exec $out/lib/codegraph/node $out/lib/codegraph/lib/dist/bin/codegraph.js "\$@"

@@ -8,17 +8,17 @@
 }:
 
 rustPlatform.buildRustPackage {
-  pname = "deepseek-tui";
-  version = "0.8.65";
+  pname = "codewhale";
+  version = "0.9.3";
 
   src = fetchFromGitHub {
     owner = "Hmbown";
     repo = "DeepSeek-TUI";
-    rev = "v0.8.65";
-    hash = "sha256-OLwQuMV9BX9GDTGPT8S3KoHAhfURPxXgk6OxvMGK5w0=";
+    rev = "v0.9.3";
+    hash = "sha256-ORFcZ4+8FEzJPday6wkarnB2QGUiyb302/KGNaB7cVE=";
   };
 
-  cargoHash = "sha256-Fv1NHzHhc2zQZzdLz0yyZmVkaN7jglSAEtN/XjaVJeY=";
+  cargoHash = "sha256-/Cdix/RctW51NVg5pbmZ7acbB7+3EmI0ByJS77cj88k=";
 
   doCheck = false;
 
@@ -26,9 +26,9 @@ rustPlatform.buildRustPackage {
   buildInputs = [ dbus openssl ];
 
   meta = {
-    description = "A TUI client for DeepSeek AI";
+    description = "Agentic terminal facade for open-source and open-weight coding models (formerly DeepSeek-TUI)";
     homepage = "https://github.com/Hmbown/DeepSeek-TUI";
     license = lib.licenses.mit;
-    mainProgram = "deepseek";
+    mainProgram = "codewhale";
   };
 }

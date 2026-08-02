@@ -16,13 +16,13 @@
   npm-lockfile-fix,
 }:
 let
-  rev = "532b7ed408b204f0d6765061b6e52072b20e0d22";
+  rev = "d25e2dbdbc40b49808c0a0e9cfed21cc90cffab3";
 
   src = fetchFromGitHub {
     owner = "NousResearch";
     repo = "hermes-agent";
     inherit rev;
-    hash = "sha256-Gyigd+xOXErW3MnN8/2yk5w51px/elOLs2WpL/XkDpc=";
+    hash = "sha256-JVpdkcgrx+TGKayql/hzhTx+zuyaFATGEtVkBo1aPCc=";
   };
 
   # tirith is an optional security scanner that auto-downloads itself at runtime
