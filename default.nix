@@ -86,6 +86,7 @@ let
   struct2json = callPackage ./pkgs/s/struct2json/package.nix {
     pkgs = pkgs;
   };
+  solomd = callPackage ./pkgs/s/solomd/package.nix {};
   tla-toolbox = callPackage ./pkgs/t/tla-toolbox/package.nix {};
   llmfit = callPackage ./pkgs/l/llmfit/package.nix {};
   my-ttf-fonts = callPackage ./pkgs/f/fonts/package.nix {};
@@ -108,6 +109,7 @@ in
   hermes-agent = hermes-agent;
   libcello_debug = libcello_debug;
   packcc = packcc_main;
+  solomd = solomd;
   struct2json = struct2json;
   tla-toolbox = tla-toolbox;
   llmfit = llmfit;
