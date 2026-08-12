@@ -16,6 +16,15 @@ let
     doCheck = false;
     doInstallCheck = false;
   });
+
+  # Pre-built dashboard SPA (built from website/ with `npm ci && npx vite build`).
+  # To rebuild: cd into a KiroCrew v0.2.0 checkout, cd website,
+  # npm ci --noproxy registry.npmjs.org && npx vite build
+  # then replace pkgs/k/kiro-crew/dashboard.tar.gz with website/dist tarball.
+  dashboard = builtins.path {
+    name = "kirocrew-dashboard-0.2.0";
+    path = ./dashboard.tar.gz;
+  };
 in python.buildPythonApplication rec {
   pname = "kirocrew";
   version = "0.2.0";
@@ -74,10 +83,6 @@ in python.buildPythonApplication rec {
     "uv"
   ];
 
-  # The frontend (website/) needs Node.js to build; skip it for now and
-  # let the gateway serve without a bundled dashboard.
-  env.KIROCREW_SKIP_FRONTEND = "1";
-
   # Skip tests — they require network and dev tooling
   doCheck = false;
 
@@ -86,6 +91,13 @@ in python.buildPythonApplication rec {
   patches = [
     ./fix-copytree-perms.patch
   ];
+
+  # Stage the pre-built dashboard into the source tree so setup.py's
+  # BuildWithFrontend class picks it up and includes it in the wheel.
+  preBuild = ''
+    mkdir -p src/kiro_crew/static/dist
+    tar xzf ${dashboard} -C src/kiro_crew/static/dist/
+  '';
 
   postInstall = ''
     wrapProgram $out/bin/kirocrew \
