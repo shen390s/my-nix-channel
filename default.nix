@@ -74,6 +74,8 @@ let
   };
   deepseek-tui = callPackage ./pkgs/d/deepseek-tui/package.nix {};
   kiro-account-manager = callPackage ./pkgs/k/kiro-account-manager/package.nix {};
+  kiro-cli = callPackage ./pkgs/k/kiro-cli/package.nix {};
+  kiro-crew = callPackage ./pkgs/k/kiro-crew/package.nix {};
   craft-agents = callPackage ./pkgs/c/craft-agents/package.nix {};
   codegraph = callPackage ./pkgs/c/codegraph/package.nix {};
   claude-agent-acp = callPackage ./pkgs/c/claude-agent-acp/package.nix {};
@@ -104,6 +106,8 @@ in
   uem = uem;
   deepseek-tui = deepseek-tui;
   kiro-account-manager = kiro-account-manager;
+  kiro-cli = kiro-cli;
+  kiro-crew = kiro-crew;
   craft-agents = craft-agents;
   codegraph = codegraph;
   claude-agent-acp = claude-agent-acp;
