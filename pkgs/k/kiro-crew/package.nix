@@ -81,6 +81,12 @@ in python.buildPythonApplication rec {
   # Skip tests — they require network and dev tooling
   doCheck = false;
 
+  # Fix: shutil.copytree from Nix store preserves read-only permissions,
+  # causing PermissionError when writing the .kirocrew-managed marker.
+  patches = [
+    ./fix-copytree-perms.patch
+  ];
+
   postInstall = ''
     wrapProgram $out/bin/kirocrew \
       --prefix PATH : ${lib.makeBinPath [ nodejs_22 uv ]}

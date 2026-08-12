@@ -1,0 +1,24 @@
+diff --git a/src/kiro_crew/deploy/__init__.py b/src/kiro_crew/deploy/__init__.py
+index 1111111..2222222 100644
+--- a/src/kiro_crew/deploy/__init__.py
++++ b/src/kiro_crew/deploy/__init__.py
+@@ -6,6 +6,7 @@ at ``/artifacts/deploy`` in the main dashboard.
+ from __future__ import annotations
+ 
+ import logging
++import os
+ import shutil
+ from pathlib import Path
+ 
+@@ -58,6 +59,11 @@ def _register_core_skills() -> None:
+         # Always copy (not symlink) so realpath stays within skill root.
+         try:
+             shutil.copytree(skill_dir, link)
++            # Fix permissions after copying from read-only Nix store
++            for dp, dns, fns in os.walk(link):
++                os.chmod(dp, 0o755)
++                for fn in fns:
++                    os.chmod(os.path.join(dp, fn), 0o644)
+             # Write the managed marker so future refreshes know it's ours
+             (link / _MANAGED_MARKER).write_text("")
+             logger.debug("Copied deploy skill %s", skill_dir.name)
