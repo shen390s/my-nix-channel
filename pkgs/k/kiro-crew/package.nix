@@ -90,6 +90,7 @@ in python.buildPythonApplication rec {
   # causing PermissionError when writing the .kirocrew-managed marker.
   patches = [
     ./fix-copytree-perms.patch
+    ./increase-timeouts.patch
   ];
 
   # Stage the pre-built dashboard into the source tree so setup.py's

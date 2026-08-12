@@ -1,0 +1,26 @@
+diff -ruN a/src/kiro_crew/acp/runtime.py b/src/kiro_crew/acp/runtime.py
+--- a/src/kiro_crew/acp/runtime.py
++++ b/src/kiro_crew/acp/runtime.py
+@@ -98,8 +98,8 @@
+ # _send_and_await timeout — naming what was in flight at the drop makes that
+ # timeout attributable instead of a mystery. Capped so the line stays bounded.
+ _DROP_IDS_IN_LOG = 8
+-_INIT_TIMEOUT = 30.0
+-_REQUEST_TIMEOUT = 30.0
++_INIT_TIMEOUT = 90.0
++_REQUEST_TIMEOUT = 90.0
+ _INIT_NOTIFICATION_BUFFER_LIMIT = 100
+ # Teardown must be snappy: a session is usually terminated on a hot path
+ # (background task done, subagent reaped). kiro-cli's terminate handler responds
+diff -ruN a/src/kiro_crew/dashboard/handlers/agents.py b/src/kiro_crew/dashboard/handlers/agents.py
+--- a/src/kiro_crew/dashboard/handlers/agents.py
++++ b/src/kiro_crew/dashboard/handlers/agents.py
+@@ -993,7 +993,7 @@
+                 env=env,
+             )
+             try:
+-                stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=10)
++                stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=45)
+             except asyncio.TimeoutError:
+                 try:
+                     proc.kill()
