@@ -92,6 +92,7 @@ let
   solomd = callPackage ./pkgs/s/solomd/package.nix {};
   tla-toolbox = callPackage ./pkgs/t/tla-toolbox/package.nix {};
   llmfit = callPackage ./pkgs/l/llmfit/package.nix {};
+  openwolf = callPackage ./pkgs/o/openwolf/package.nix {};
   my-ttf-fonts = callPackage ./pkgs/f/fonts/package.nix {};
 in
 {
@@ -119,5 +120,6 @@ in
   struct2json = struct2json;
   tla-toolbox = tla-toolbox;
   llmfit = llmfit;
+  openwolf = openwolf;
   my-ttf-fonts = my-ttf-fonts;
 }
