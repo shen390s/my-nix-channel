@@ -4,7 +4,6 @@ let
   cedro = callPackage ./pkgs/c/cedro/package.nix {};
   capnpc = callPackage ./pkgs/c/capnpc/package.nix {};
   gost-ctl = callPackage ./pkgs/g/gost-ctl/package.nix {};
-  norouter = callPackage ./pkgs/n/norouter/package.nix {};
   xbuild = callPackage ./pkgs/x/xbuild/package.nix {
     pkgs = pkgs;
     cedro = cedro;
@@ -79,7 +78,6 @@ let
   craft-agents = callPackage ./pkgs/c/craft-agents/package.nix {};
   codegraph = callPackage ./pkgs/c/codegraph/package.nix {};
   claude-agent-acp = callPackage ./pkgs/c/claude-agent-acp/package.nix {};
-  claude-auto-retry = callPackage ./pkgs/c/claude-auto-retry/package.nix {};
   hermes-agent = callPackage ./pkgs/h/hermes-agent/package.nix {
     uv2nix = uv2nix;
     pyproject-nix = pyproject-nix;
@@ -101,7 +99,6 @@ in
   capnpc = capnpc;
   cedro  = cedro;
   gost-ctl = gost-ctl;
-  norouter = norouter;
   zlog_with_pkgconf = zlog_with_pkgconf;
   tinylog = tinylog;
   unity_test_with_color = unity_test_with_color;
@@ -113,7 +110,6 @@ in
   craft-agents = craft-agents;
   codegraph = codegraph;
   claude-agent-acp = claude-agent-acp;
-  claude-auto-retry = claude-auto-retry;
   hermes-agent = hermes-agent;
   libcello_debug = libcello_debug;
   packcc = packcc_main;
