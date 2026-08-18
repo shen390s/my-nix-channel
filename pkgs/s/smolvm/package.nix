@@ -1,0 +1,105 @@
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  patchelf,
+  gcc-unwrapped,
+  bzip2,
+  # Runtime tools smolvm shells out to on the host.
+  crun,
+  jq,
+  e2fsprogs,
+  util-linux,
+  gzip,
+  gnutar,
+  coreutils,
+}:
+
+let
+  version = "1.8.3";
+
+  releases = {
+    x86_64-linux = {
+      asset = "smolvm-${version}-linux-x86_64.tar.gz";
+      root = "smolvm-${version}-linux-x86_64";
+      hash = "sha256-K5CwZB19yrd36B28jynM9LRfeTatQLB/HtJGfYIxuGw=";
+    };
+    aarch64-linux = {
+      asset = "smolvm-${version}-linux-arm64.tar.gz";
+      root = "smolvm-${version}-linux-arm64";
+      hash = "sha256-hf743j02/rOQhLXpfVLnczUHMxZvxpr5A8JhiXB2lEs=";
+    };
+    aarch64-darwin = {
+      asset = "smolvm-${version}-darwin-arm64.tar.gz";
+      root = "smolvm-${version}-darwin-arm64";
+      hash = "sha256-EvQ3uAZ/Lcj89eUypVeLdF3dFrZNpFAg47Hg5q8cS3Y=";
+    };
+  };
+
+  release =
+    releases.${stdenv.hostPlatform.system}
+      or (throw "smolvm release tarball is not available for ${stdenv.hostPlatform.system}");
+
+  linuxRpath = lib.makeLibraryPath [
+    gcc-unwrapped.lib
+    bzip2
+  ];
+
+  runtimeDeps =
+    [ jq gzip gnutar coreutils ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ crun e2fsprogs util-linux ];
+in
+stdenv.mkDerivation {
+  pname = "smolvm";
+  inherit version;
+
+  src = fetchurl {
+    url = "https://github.com/smol-machines/smolvm/releases/download/v${version}/${release.asset}";
+    inherit (release) hash;
+  };
+
+  sourceRoot = release.root;
+
+  nativeBuildInputs =
+    [ makeWrapper ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ patchelf ];
+
+  dontPatchELF = true;
+  dontPatchShebangs = true;
+  dontStrip = true;
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/libexec/smolvm $out/bin
+    cp -R . $out/libexec/smolvm/
+    chmod +x $out/libexec/smolvm/smolvm $out/libexec/smolvm/smolvm-bin
+    patchShebangs $out/libexec/smolvm/smolvm
+  '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
+      --set-rpath '$ORIGIN/lib:${linuxRpath}' \
+      $out/libexec/smolvm/smolvm-bin
+
+    for library in $out/libexec/smolvm/lib/*.so*; do
+      if patchelf --print-needed "$library" >/dev/null 2>&1; then
+        patchelf --set-rpath '$ORIGIN:${linuxRpath}' "$library"
+      fi
+    done
+  '' + ''
+    makeWrapper $out/libexec/smolvm/smolvm $out/bin/smolvm \
+      --set-default SMOLVM_AGENT_ROOTFS $out/libexec/smolvm/agent-rootfs \
+      --prefix PATH : ${lib.makeBinPath runtimeDeps}
+
+    runHook postInstall
+  '';
+
+  meta = {
+    description = "Ship and run software with isolation by default";
+    homepage = "https://github.com/smol-machines/smolvm";
+    license = lib.licenses.asl20;
+    platforms = builtins.attrNames releases;
+    mainProgram = "smolvm";
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+  };
+}
