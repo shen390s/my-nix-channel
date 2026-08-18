@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "codewhale";
-  version = "0.9.3";
+  version = "0.9.8";
 
   src = fetchFromGitHub {
     owner = "Hmbown";
-    repo = "DeepSeek-TUI";
-    rev = "v0.9.3";
-    hash = "sha256-ORFcZ4+8FEzJPday6wkarnB2QGUiyb302/KGNaB7cVE=";
+    repo = "CodeWhale";
+    rev = "v0.9.8";
+    hash = "sha256-/j43zxaC7rOu4M2Sk9khI/Bb2drs9n/WghhJiKqQDyU=";
   };
 
-  cargoHash = "sha256-/Cdix/RctW51NVg5pbmZ7acbB7+3EmI0ByJS77cj88k=";
+  cargoHash = lib.fakeHash;
 
   doCheck = false;
 
@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage {
 
   meta = {
     description = "Agentic terminal facade for open-source and open-weight coding models (formerly DeepSeek-TUI)";
-    homepage = "https://github.com/Hmbown/DeepSeek-TUI";
+    homepage = "https://github.com/Hmbown/CodeWhale";
     license = lib.licenses.mit;
     mainProgram = "codewhale";
   };

@@ -35,12 +35,12 @@ let
     '';
   });
   packcc_main = pkgs.packcc.overrideAttrs (prevAttrs: {
-    version = "3.0.0";
+    version = "3.1.0";
     src = fetchFromGitHub {
       owner = "arithy";
       repo = "packcc";
-      rev = "main";
-      hash = "sha256-zkrpPGLylgPpV1iyXosVbsbn2qt8/+WnBeK/w1WtwBk=";
+      rev = "v3.1.0";
+      hash = "sha256-vBRi9Pxcy6MhdrbZd13Xgel3w3qiIrU8F3rO1GFqSgE=";
     };
 
     nativeBuildInputs = [
@@ -59,7 +59,6 @@ let
     '';
 
     buildPhase = ''
-       cmake $src -DCMAKE_INSTALL_PREFIX=$out
        cmake --build .
     '';
 

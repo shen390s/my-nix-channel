@@ -2,11 +2,11 @@
 
 let
   pname = "craft-agents";
-  version = "0.11.2";
+  version = "0.12.0";
 
   src = fetchurl {
     url = "https://github.com/craft-ai-agents/craft-agents-oss/releases/download/v${version}/Craft-Agents-${version}-linux-x64.AppImage";
-    hash = "sha256-oNKZwnqI93elV2G4R941ZDc7rNBnt0M2QoCb2mThxnc=";
+    hash = "sha256-GLjbSsI+UjpF0IC1dZZhs5m1winc88uhPNrKn1gbX10=";
   };
 in appimageTools.wrapType2 {
   inherit pname version src;

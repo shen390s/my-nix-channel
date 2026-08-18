@@ -5,24 +5,27 @@
   callPackage,
   fetchFromGitHub,
   python312,
-  nodejs_22,
+  electron,
   ripgrep,
   git,
   openssh,
   ffmpeg,
+  wl-clipboard,
+  xclip,
+  cage,
   uv2nix,
   pyproject-nix,
   pyproject-build-systems,
   npm-lockfile-fix,
 }:
 let
-  rev = "d25e2dbdbc40b49808c0a0e9cfed21cc90cffab3";
+  rev = "7e05e9080b2e46cd35e6f0caa016360301258823";
 
   src = fetchFromGitHub {
     owner = "NousResearch";
     repo = "hermes-agent";
     inherit rev;
-    hash = "sha256-JVpdkcgrx+TGKayql/hzhTx+zuyaFATGEtVkBo1aPCc=";
+    hash = "sha256-myGU+PMwaJNTUYIPUp4BmxUAfryurM1QOKq3CgjQ4K8=";
   };
 
   # tirith is an optional security scanner that auto-downloads itself at runtime
@@ -39,12 +42,16 @@ in
       lib
       stdenv
       makeWrapper
+      callPackage
       python312
-      nodejs_22
+      electron
       ripgrep
       git
       openssh
       ffmpeg
+      wl-clipboard
+      xclip
+      cage
       tirith
       uv2nix
       pyproject-nix
