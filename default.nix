@@ -76,6 +76,7 @@ let
   kiro-crew = callPackage ./pkgs/k/kiro-crew/package.nix {};
   craft-agents = callPackage ./pkgs/c/craft-agents/package.nix {};
   codegraph = callPackage ./pkgs/c/codegraph/package.nix {};
+  crush = callPackage ./pkgs/c/crush/package.nix {};
   claude-agent-acp = callPackage ./pkgs/c/claude-agent-acp/package.nix {};
   hermes-agent = callPackage ./pkgs/h/hermes-agent/package.nix {
     uv2nix = uv2nix;
@@ -108,6 +109,7 @@ in
   kiro-crew = kiro-crew;
   craft-agents = craft-agents;
   codegraph = codegraph;
+  crush = crush;
   claude-agent-acp = claude-agent-acp;
   hermes-agent = hermes-agent;
   libcello_debug = libcello_debug;
