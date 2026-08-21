@@ -2,16 +2,16 @@
 
 let
   pname = "kiro-cli";
-  version = "2.16.2";
+  version = "2.19.0";
 
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://prod.download.cli.kiro.dev/stable/${version}/kirocli-x86_64-linux.tar.gz";
-      hash = "sha256-HrZMQ7hKNeMSkiNpyAxwQv/TE2+AtombJyNbo3XB4LY=";
+      hash = "sha256-+8PU8z1fE1OUZ+1DWjIorjkKOjHB8k2eqjnN5oe0kWw=";
     };
     aarch64-linux = fetchurl {
       url = "https://prod.download.cli.kiro.dev/stable/${version}/kirocli-aarch64-linux.tar.gz";
-      hash = "sha256-/tyUt0fyIx0gSwKOEPN7C2jgWwUeRV4XAb7yNwewIOc=";
+      hash = "sha256-0B+ngW1msSJZi1BdgCrDYsvCYp1i4F8erPmyuwHjNXs=";
     };
   };
 in stdenv.mkDerivation {
